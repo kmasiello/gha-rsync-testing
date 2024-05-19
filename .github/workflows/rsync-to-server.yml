@@ -32,5 +32,5 @@ jobs:
         SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
         SSH_KEY_PATH: ${{ github.workspace }}/private.key
 
-    # - name: deploy with rsync
-    #   run: rsync -avz "ssh -i $SSH_KEY_PATH" _site ${{ secrets.USERNAME }}@${{ secrets.HOST }}:REPOSITORY
+    - name: deploy with rsync
+      run: rsync -avz "ssh -i $SSH_KEY_PATH" _site ${{ secrets.USERNAME }}@${{ secrets.HOST }}:REPOSITORY
