@@ -26,6 +26,9 @@ jobs:
         echo "$KEY" > private.key
         sudo chmod 600 private.key
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        echo $KEY
+        echo $HOST
+        echo $USERNAME
       shell: bash
       env:
         SSH_PRIVATE_KEY: ${{secrets.KEY}}
