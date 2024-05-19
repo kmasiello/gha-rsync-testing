@@ -10,14 +10,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: zip and backup current deployment on remote server
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        script: |
-          zip -r backup/backup.zip public_html/
+    # - name: zip and backup current deployment on remote server
+    #   uses: appleboy/ssh-action@v1.0.3
+    #   with:
+    #     host: ${{ secrets.HOST }}
+    #     username: ${{ secrets.USERNAME }}
+    #     key: ${{ secrets.KEY }}
+    #     script: |
+    #       zip -r backup/backup.zip public_html/
 
 
     - name: Copy _site directory to remote server
@@ -31,11 +31,12 @@ jobs:
         target: "~/REPOSITORY"
         overwrite: true
 
-    # - name: move contents of _site directory up one level
-    #   uses: appleboy/ssh-action@v1.0.3
-    #   with:
-    #     host: ${{ secrets.HOST }}
-    #     username: ${{ secrets.USERNAME }}
-    #     key: ${{ secrets.KEY }}
-    #     script: |
-    #       mv REPOSITORY/_site/* REPOSITORY/ && rm -r REPOSITORY/_site
+    - name: move contents of _site directory up one level
+      if: ${{ success() }}
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: |
+          mv REPOSITORY/_site/* REPOSITORY/ && rm -r REPOSITORY/_site
