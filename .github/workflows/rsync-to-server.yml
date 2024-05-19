@@ -17,6 +17,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
+          apt install zip
           zip -r backup/backup.zip public_html/
 
     # - name: Create SSH key
